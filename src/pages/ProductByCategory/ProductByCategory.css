@@ -1,0 +1,133 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  width: 400px;
+  margin: 20px;
+  /* text-align: center; */
+  position: relative;
+}
+
+
+.card-image {
+  width: 100%;
+  height: 50%;
+  margin-bottom: 15px;
+}
+
+.card h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.rating {
+  font-size: 1rem;
+  color: #ff9500;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  margin: 5px 0;
+}
+
+.shop {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card:hover .button-container {
+  display: flex;
+}
+
+
+
+button.quick-view {
+  background-color: #ffffff;
+  color: #3b73ff;
+  border: 1px solid #3b73ff;
+}
+
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+.add-to-cart{
+  background: blue;
+  color: white;
+}
+
+
+.divImage{
+  width: 100%;
+}
+.Image-Header {
+  background-image: url('../../components/Banner/360_F_598758341_NzcqKk3DX3bJhQge0Ngba47JQDmI8bHm.jpg');
+  background-size: cover; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */ /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 50px;
+  font-weight: 900;
+  color: #a75b53; /* Adjust as needed */
+  font-size: 2rem; /* Adjust as needed */
+}
+.svg-red {
+  fill: grey;
+}
+.svg-large svg {
+  width: 48px; /* Adjust size as needed */
+  height: 48px; /* Adjust size as needed */
+}
+
+.svg-red svg {
+  fill: grey;
+}
+
+
+/* Add this to your CSS file */
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.content.visible {
+  max-height: 500px; /* Set this to a value that can accommodate your content */
+  transition: max-height 0.3s ease-in;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #D1D5DB; /* Light gray border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 8px 12px; /* Padding for input */
+  width: 100%;
+  max-width: 400px; /* Optional: Set a maximum width */
+}
+
+.search-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 0; /* Remove default padding */
+}
+
+.search-container .icon {
+  margin-right: 8px;
+  color: #9CA3AF; /* Placeholder color */
+}

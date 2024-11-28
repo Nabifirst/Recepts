@@ -1,0 +1,228 @@
+.product-page {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .product-container {
+    padding: 20px;
+    display: flex;
+    /* box-shadow: 5px 5px 5px gainsboro; */
+    /* flex-direction: column; */
+    /* border: 1px solid #e0e0e0; */
+    border-bottom: 1px gainsboro solid;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    width: 1200px;
+  }
+
+  .css-1x9he2g{
+    width: 100%;
+  }
+
+  /* .css-jpln7h-MuiTabs-scroller{
+    padding-bottom: 10px
+  }
+
+  .css-r7atw5-MuiButtonBase-root-MuiTab-root.Mui-selected{
+    color: #000;
+  }
+  .css-19kzrtu{
+    width: 100%;
+  } */
+
+
+  .video-player {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+  }
+
+  .react-responsive-modal-closeButton {
+  position: absolute;
+  right: 0px;
+  }
+  
+
+
+  .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: var(--swiper-pagination-bottom, -7px);
+    top: var(--swiper-pagination-top, auto);
+    left: 0;
+    width: 100%;
+}
+
+  
+  .thumbnail-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .thumbnail {
+    width: 100px;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
+  }
+  
+  .thumbnail:hover {
+    border-bottom: 1px solid #000;
+  }
+  
+  .product-details {
+    padding: 20px;
+    flex: 1;
+  }
+  
+  .product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .product-details p {
+    margin-bottom: 20px;
+  }
+  
+  .product-price {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .current-price {
+    font-weight: bold;
+    color: #d9534f;
+  }
+  
+  .old-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-left: 10px;
+  }
+  
+  .product-availability {
+    margin-bottom: 20px;
+    color: #5cb85c;
+  }
+  
+  .product-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .product-actions .add-to-cart,
+  .product-actions .buy-now {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .product-actions .add-to-cart {
+    background-color: #5bc0de;
+    color: white;
+  }
+  
+  .product-actions .buy-now {
+    background-color: #d9534f;
+    color: white;
+  }
+  
+  .store-info {
+    margin-bottom: 20px;
+  }
+  
+  .store-info .store-name,
+  .store-info .store-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .store-info .store {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .store-info .store-title {
+    font-size: 18px;
+  }
+  
+  .store-info .rating {
+    font-size: 16px;
+    color: #f0ad4e;
+  }
+  
+  .store-info .reviews {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .shipping-info {
+    margin-bottom: 20px;
+  }
+  
+  .shipping-info .shipping-option,
+  .shipping-info .delivery-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .shipping-info a {
+    color: #5bc0de;
+    text-decoration: none;
+  }
+  
+  /* .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .loading-spinner {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    
+  }
+  
+  .loading-spinner:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #3498db;
+    border-color: #3498db transparent #3498db transparent;
+    animation: loading-spinner 1.2s linear infinite;
+  }
+  
+  @keyframes loading-spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+   */

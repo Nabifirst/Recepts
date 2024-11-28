@@ -1,0 +1,182 @@
+
+  .product-card:hover .hover-content {
+    bottom: 0;
+  }
+  
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+
+  @keyframes likeAnimation {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(2.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  
+  .like-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    opacity: 0;
+    animation: likeAnimation 1s forwards;
+  }
+
+  /* Like animation styles */
+.like-icon {
+  animation: scaleFade 1.2s ease-out forwards;
+  color: red;
+  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.6)); /* Glow effect */
+}
+
+@keyframes scaleFade {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* Like button hover effect */
+.like-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.like-button:hover {
+  transform: scale(1.2);
+}
+
+/* Like button container */
+.like-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.Toastify__toast-container {
+  width: 400px !important; /* Set the toast container width */
+  /* text-align: center; Center align text */
+}
+
+.Toastify__toast--success {
+  margin: 0 auto; /* Center the toast on the screen */
+}
+
+  
+  .image-wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  .image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+
+  /* .product-card {
+    transition: transform 0.3s ease-in-out;
+  }
+   */
+  /* .product-card:hover {
+    transform: translateY(-10px) scale(1.05);
+  } */
+  .slick-slider {
+    position: relative;
+  }
+  
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slick-slide img {
+    display: block;
+    max-width: 100%;
+    max-height: 240px;
+    margin: auto;
+  }
+
+  .swiper-wrapper{
+    width: 30px;
+  }
+
+  .product-card:hover .slick-slider {
+    display: block;
+  }
+  /* Products.css */
+
+.swiper-button-next, .swiper-button-prev {
+  color: black; /* Change the color of the navigation buttons */
+  height: 25px;
+  width:25px;
+  background: gainsboro;
+  padding: 10px; /* Add padding */
+  border-radius: 50%; /* Make the border radius fully rounded */
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center; /* Adjust the font size if necessary */
+}
+
+.header{
+  /* background: #cb2d41; */
+  padding: 10px 0;
+}
+
+
+.custom-toast {
+  background-color: #333; /* Dark background */
+  color: #fff; /* White text */
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  width: auto !important; /* Ensures it adjusts based on content */
+  min-width: 200px; /* Optional: Ensures a minimum width */
+}
+
+.custom-toast-body {
+  font-size: 16px; /* Adjust font size */
+  padding: 10px 20px; /* Padding around the text */
+}
+
+.Toastify__toast-container--top-center {
+  top: 20%;
+  transform: translateX(-50%);
+}

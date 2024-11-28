@@ -1,0 +1,59 @@
+/* HTML: <div class="square-loader"></div> */
+.square-loader {
+    width: 55px;
+    aspect-ratio: 1;
+    --g1: conic-gradient(from 90deg at 3px 3px, #0000 90deg, #000000 0);
+    --g2: conic-gradient(from -90deg at 22px 22px, #0000 90deg, #000000 0);
+    background: var(--g1), var(--g1), var(--g1), var(--g2), var(--g2), var(--g2);
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    animation: square-spin 1.5s infinite;
+  }
+  
+  @keyframes square-spin {
+    0%   {background-position: 0    0   , 0 100%, 100% 100% }
+    25%  {background-position: 100% 0   , 0 100%, 100% 100% }
+    50%  {background-position: 100% 0   , 0 0   , 100% 100% }
+    75%  {background-position: 100% 0   , 0 0   , 0    100% }
+    100% {background-position: 100% 100%, 0 0   , 0    100% }
+  }
+
+  .svg-container {
+    width: 40px;
+    color: gainsboro; /* Adjust this value to your needs */
+     /* Adjust this value to your needs */
+  }
+  
+  
+  .image-swiper-container {
+    position: relative;
+  }
+  
+  .image-swiper-container .swiper-button-next,
+  .image-swiper-container .swiper-button-prev {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .image-swiper-container:hover .swiper-button-next,
+  .image-swiper-container:hover .swiper-button-prev {
+    opacity: 1;
+  }
+  
+  
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  

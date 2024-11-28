@@ -1,0 +1,78 @@
+/* home.css */
+main{
+  width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* General styles */
+.header {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.homeCounter {
+  display: flex;
+  align-items: center;
+  /* background-color: aqua; */
+}
+
+.swiper-transition {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out; /* Adjust the duration and timing function as needed */
+}
+
+.swiper-hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Match the duration and timing function */
+}
+
+.swiper-navigation-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 20px; /* Adjust spacing between buttons and the "Buy Now" button */
+}
+
+/* Add this to your CSS file */
+.swiper-backface-hidden .swiper-slide {
+  backface-visibility: visible !important;
+  transform: translateZ(1) !important;
+}
+
+.swiper-backface-hidden,
+.swiper-slide {
+    transform: translateZ(1px);
+}
+
+
+
+
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px;
+  }
+
+  .homeCounter {
+    display: none;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    height: auto;
+  }
+}
+
