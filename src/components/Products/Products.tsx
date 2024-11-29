@@ -13,9 +13,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { getproduct } from '../../requests/requests'
-import { RootState } from '../../store/store' // Replace with your actual store structure
-import OurBrands from '../Our Brands/OurBrands'
+import { RootState } from '../../store/store'
 import './Products.css'
+import TopFoods from '../TopFoods/TopFoods'
 
 interface Product {
 	id: number
@@ -219,7 +219,7 @@ const Products: React.FC = () => {
 						))}
 					</div>
 					<div className=' mt-[50px]'>
-						<OurBrands />
+						<TopFoods />
 					</div>
 					<div className='grid grid-cols-5 gap-4 mt-[40px]'>
 						{data?.slice(10).map((product) => (

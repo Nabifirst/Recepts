@@ -1,23 +1,34 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosRequest } from "../utils/axiosRequest";
+import { AppDispatch } from "../store/store";
 
-// Define response types
 interface ApiResponse<T> {
   data: T;
 }
 
 interface ReviewObject {
   productId: number;
-  // userId: number;
   name:string;
   raiting: number;
   content: string;
-  // Add other properties as necessary
 }
 
 interface Category {
   id: number;
   name: string;
+}
+
+interface delProduct {
+  id:string
+}
+
+interface UpdateAtributValues{
+  success: boolean;
+}
+
+interface EditAtributValues{
+  id:number;
+  value:string;
 }
 
 interface SubCategory {
@@ -33,7 +44,6 @@ interface Product {
 }
 
 
-// Define common types
 interface ProductFilterParams {
   id: string;
 }
@@ -47,6 +57,27 @@ interface CartProduct {
   quantity: number;
 }
 
+interface ProductForm {
+  id: string;
+  Name: string;
+  Code: string;
+  Quantity: number;
+  Description: string;
+  Price: number;
+  HasDiscount: boolean;
+  DiscountPrice: number;
+  BrandId: string;
+  CategoryId: string;
+  images?: File[];
+}
+
+
+
+interface AddProductResponse {
+  id: string;
+  name: string;
+}
+
 interface RegisterResponse {
   token: string;
 }
@@ -55,9 +86,8 @@ interface LoginResponse {
   token: string;
 }
 
-// Fetch categories
 export const getdata = createAsyncThunk<Category[]>(
-  "zapros/getdata",
+  "requests/getdata",
   async () => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<Category[]>>(`api/categories`);
@@ -69,9 +99,8 @@ export const getdata = createAsyncThunk<Category[]>(
   }
 );
 
-// Fetch subcategories by ID
 export const getBySubCategory = createAsyncThunk<Product[], number>(
-  "zapros/getBySubCategory",
+  "requests/getBySubCategory",
   async (id) => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<Product[]>>(
@@ -85,9 +114,32 @@ export const getBySubCategory = createAsyncThunk<Product[], number>(
   }
 );
 
-// Fetch all subcategories
+export const getattributes = createAsyncThunk(
+  "requests/getattributes",
+  async function () {
+    try {
+      const { data } = await axiosRequest.get("api/attributes");
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const getattributesvalue = createAsyncThunk(
+  "requests/getattributesvalue",
+  async function () {
+    try {
+      const { data } = await axiosRequest.get("api/attribute-values");
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getSubCategory = createAsyncThunk<SubCategory[]>(
-  "zapros/getSubCategory",
+  "requests/getSubCategory",
   async () => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<SubCategory[]>>(`api/sub-categories`);
@@ -99,9 +151,8 @@ export const getSubCategory = createAsyncThunk<SubCategory[]>(
   }
 );
 
-// Fetch more subcategories
 export const getMoreSubCategories = createAsyncThunk<SubCategory[]>(
-  "zapros/getMoreSubCategories",
+  "requests/getMoreSubCategories",
   async () => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<SubCategory[]>>(`api/sub-categories`);
@@ -113,9 +164,21 @@ export const getMoreSubCategories = createAsyncThunk<SubCategory[]>(
   }
 );
 
-// Fetch brands
+export const delProduct = createAsyncThunk(
+  "requests/delProduct",
+  async function (id:delProduct, { dispatch }) {
+    try {
+      await axiosRequest.delete(`api/products/${id}`);
+      dispatch(getproduct());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+
 export const getBrands = createAsyncThunk<any>(
-  "zapros/getBrands",
+  "requests/getBrands",
   async () => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<any>>(`api/brands`);
@@ -127,9 +190,8 @@ export const getBrands = createAsyncThunk<any>(
   }
 );
 
-// Fetch product by ID
 export const getproductbyid = createAsyncThunk<Product, number>(
-  "zapros/getproductbyid",
+  "requests/getproductbyid",
   async (id) => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<Product>>(`api/products/${id}`);
@@ -141,9 +203,8 @@ export const getproductbyid = createAsyncThunk<Product, number>(
   }
 );
 
-// Fetch product by name
 export const getproductbyname = createAsyncThunk<Product[], string>(
-  "zapros/getproductbyname",
+  "requests/getproductbyname",
   async (name, { rejectWithValue }) => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<Product[]>>(
@@ -160,9 +221,8 @@ export const getproductbyname = createAsyncThunk<Product[], string>(
 
 
 
-// Fetch cart products
 export const getcart = createAsyncThunk<CartProduct[]>(
-  "zapros/getcart",
+  "requests/getcart",
   async () => {
     try {
       const { data } = await axiosRequest.get<ApiResponse<CartProduct[]>>(
@@ -176,9 +236,8 @@ export const getcart = createAsyncThunk<CartProduct[]>(
   }
 );
 
-// Add product to cart
 export const postcart = createAsyncThunk<void, number>(
-  "zapros/postcart",
+  "requests/postcart",
   async (id, { dispatch }) => {
     try {
       await axiosRequest.post(`Cart/add-product-to-cart?id=${id}`);
@@ -190,9 +249,8 @@ export const postcart = createAsyncThunk<void, number>(
   }
 );
 
-// Increment product quantity in cart
 export const inccart = createAsyncThunk<void, number>(
-  "zapros/inccart",
+  "requests/inccart",
   async (id, { dispatch }) => {
     try {
       await axiosRequest.put(`Cart/increase-product-in-cart?id=${id}`);
@@ -204,9 +262,8 @@ export const inccart = createAsyncThunk<void, number>(
   }
 );
 
-// Decrement product quantity in cart
 export const redcart = createAsyncThunk<void, number>(
-  "zapros/redcart",
+  "requests/redcart",
   async (id, { dispatch }) => {
     try {
       await axiosRequest.put(`Cart/reduce-product-in-cart?id=${id}`);
@@ -218,12 +275,60 @@ export const redcart = createAsyncThunk<void, number>(
   }
 );
 
+export const addAttributeValue = createAsyncThunk(
+  "attributes/addAttributeValue",
+  async (attributeValue:any,{dispatch}) => {
+    try {
+      await axiosRequest.post("api/attribute-values",attributeValue);
+       dispatch(getattributes())
+    } catch (error) {
+      
+    }
+  }
+);
+
+export const addAttribute = createAsyncThunk(
+  "attributes/addAttribute",
+  async (addAttribute:any, { dispatch }) => {
+    try {
+      await axiosRequest.post("api/attributes",addAttribute)
+      dispatch(getattributes())
+    } catch (error) {
+
+    }
+  }
+);
+
+export const deleteattributes = createAsyncThunk(
+  "requests/deleteattributes",
+  async function (id:number, { dispatch }) {
+    try {
+     await axiosRequest.delete(`api/attributes/${id}`);
+      dispatch(getattributes());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const deleteattributesvalue = createAsyncThunk(
+  "requests/deleteattributesvalue",
+  async function (id:number, { dispatch }) {
+    try {
+      await axiosRequest.delete(`api/attribute-values/${id}`);
+      dispatch(getattributes());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const postreview = createAsyncThunk(
-  "zapros/postreview",
+  "requests/postreview",
   async (obj: ReviewObject, { rejectWithValue }) => {
     try {
       const { data } = await axiosRequest.post(`api/product-reviews`, obj);
-      return data; // Return the data if needed
+      return data; 
     } catch (error: any) {
       console.error(error);
       return rejectWithValue(error.response?.data || "An error occurred");
@@ -231,9 +336,8 @@ export const postreview = createAsyncThunk(
   }
 );
 
-// Register user
 export const register = createAsyncThunk<RegisterResponse, { firstName: string;phoneNumber:string;password:string;confirmPassword:string; lastName: string }>(
-  "zapros/register",
+  "requests/register",
   async (userData) => {
     try {
       const { data } = await axiosRequest.post<ApiResponse<RegisterResponse>>(
@@ -248,9 +352,8 @@ export const register = createAsyncThunk<RegisterResponse, { firstName: string;p
   }
 );
 
-// Login user
 export const login = createAsyncThunk<LoginResponse, { phoneNumber: string; password: string }>(
-  "zapros/login",
+  "requests/login",
   async (userData) => {
     try {
       const { data } = await axiosRequest.post<ApiResponse<LoginResponse>>(
@@ -265,9 +368,8 @@ export const login = createAsyncThunk<LoginResponse, { phoneNumber: string; pass
   }
 );
 
-// Remove product from cart
 export const delcart = createAsyncThunk<void, number>(
-  "zapros/delcart",
+  "requests/delcart",
   async (id, { dispatch }) => {
     try {
       await axiosRequest.delete(`Cart/delete-product-from-cart?id=${id}`);
@@ -278,22 +380,11 @@ export const delcart = createAsyncThunk<void, number>(
     }
   }
 );
-export const delproduct = createAsyncThunk<void, number>(
-  "zapros/delproduct",
-  async (id) => {
-    try {
-      let data = await axiosRequest.delete(`api/products/${id}`);
-      return data.data
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
-);
+
 
 
 export const getProductById = createAsyncThunk(
-  "zapros/getProductById",
+  "requests/getProductById",
   async function (id: string) {
     try {
       const { data } = await axiosRequest.get(`api/products/with-attributes/${id}`);
@@ -306,7 +397,7 @@ export const getProductById = createAsyncThunk(
 );
 
 export const getbyid = createAsyncThunk(
-  "zapros/getbyid",
+  "requests/getbyid",
   async function (id: number) {
     try {
       const { data } = await axiosRequest.get(`api/categories/${id}`);
@@ -319,7 +410,7 @@ export const getbyid = createAsyncThunk(
 );
 
 export const getcategory = createAsyncThunk(
-  "zapros/getcategory",
+  "requests/getcategory",
   async function (_, { rejectWithValue }) {
     try {
       const { data } = await axiosRequest.get(`api/categories`);
@@ -333,7 +424,7 @@ export const getcategory = createAsyncThunk(
 );
 
 export const getproduct = createAsyncThunk(
-  "zapros/getproduct",
+  "requests/getproduct",
   async function (search?: string) {
     try {
       const { data } = await axiosRequest.get(
@@ -347,8 +438,153 @@ export const getproduct = createAsyncThunk(
   }
 );
 
+
+export const addproduct = createAsyncThunk<AddProductResponse,ProductForm, { dispatch: AppDispatch }>(
+  "requests/addproduct",
+  async function (form, { dispatch }) {
+    const formData = new FormData();
+
+    formData.append("BrandId", "3");
+    formData.append("DiscountPrice", "3");
+    formData.append("Price", "3");
+    formData.append("Quantity", "30");
+    formData.append("Name", form.Name);
+    formData.append("Code", Math.random().toString());
+    formData.append("CategoryId", form.CategoryId);
+    formData.append("HasDiscount", "true");
+    formData.append("Description", form.Description);
+
+    if (form.images) {
+      form.images.forEach((image) => {
+        formData.append("images", image);
+      });
+    }
+
+    try {
+      const { data } = await axiosRequest.post<AddProductResponse>("api/products", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      dispatch(getproduct());
+
+      return data;
+    } catch (error: any) {
+      console.error("Error adding product:", error.message);
+      throw error;
+    }
+  }
+);
+
+export const getatributsbyproductid = createAsyncThunk(
+  "requests/getatributsbyproductid",
+  async function (id:number) {
+    try {
+      const { data } = await axiosRequest.get(`api/products/with-attributes/${id}`);
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching attributes:", error);
+    }
+  }
+);
+
+
+export const editatributsbyproductid = createAsyncThunk<UpdateAtributValues, EditAtributValues>(
+  "requests/editatributsbyproductid",
+  async function ({ id, value }) {
+    try {
+      await axiosRequest.put(
+        `api/products/attribute-values/${id}`,
+        {
+          value: value,
+          isVisible: true,
+        }
+      );
+      
+      return { success: true };
+    } catch (error) {
+      console.error(error);
+      return { success: false }; 
+    }
+  }
+);
+
+export const eddproduct = createAsyncThunk(
+  "requests/eddproduct",
+  async (form: ProductForm, { dispatch }) => {
+    const formData = new FormData();
+    formData.append("Name", form.Name);
+    formData.append("Code", form.Code);
+    formData.append("Quantity", form.Quantity.toString());
+    formData.append("Description", form.Description);
+    formData.append("Price", form.Price.toString());
+    formData.append("HasDiscount", form.HasDiscount.toString());
+    if (form.DiscountPrice) {
+      formData.append("DiscountPrice", form.DiscountPrice.toString());
+    }
+    formData.append("BrandId", form.BrandId);
+    formData.append("CategoryId", form.CategoryId);
+
+    if (form.images && form.images.length > 0) {
+      form.images.forEach((image) => {
+        formData.append("Images", image);
+      });
+    }
+
+    try {
+      const { data } = await axiosRequest.put(
+        `api/products/${form.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      dispatch(getproduct() as AppDispatch);
+      return data;
+    } catch (error: any) {
+      console.error("Error updating product:", error);
+      throw error.response?.data || error.message;
+    }
+  }
+);
+
+export const addImageToProduct = createAsyncThunk(
+  "requests/addImageToProduct",
+  async (formData:any, { dispatch }) => {
+    try {
+      await axiosRequest.post(
+        "api/products/images",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      dispatch(getproduct());
+    } catch (error) {
+    }
+  }
+);
+
+
+export const delImageById = createAsyncThunk(
+  "requests/delImageById",
+  async function (id:number, { dispatch }) {
+    try {
+      await axiosRequest.delete(`api/products/images/${id}`);
+      dispatch(getproduct());
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const getproductbyalsocategory = createAsyncThunk(
-  "zapros/getproductbyalsocategory",
+  "requests/getproductbyalsocategory",
   async function (id: string) {
     try {
       const { data } = await axiosRequest.get(`api/products?CategoryId=${id}`);
@@ -361,7 +597,7 @@ export const getproductbyalsocategory = createAsyncThunk(
 );
 
 export const getproductbybrandid = createAsyncThunk(
-  "zapros/getproductbybrandid",
+  "requests/getproductbybrandid",
   async function (params: ProductFilterParams) {
     try {
       let url = `api/products?BrandId=${params.id}`
@@ -375,7 +611,7 @@ export const getproductbybrandid = createAsyncThunk(
 );
 
 export const getproductbycategoryid = createAsyncThunk(
-  "zapros/getproductbycategoryid",
+  "requests/getproductbycategoryid",
   async function (params: ProductFilterParams) {
     try {
       let url = `api/products?CategoryId=${params.id}`
@@ -389,7 +625,7 @@ export const getproductbycategoryid = createAsyncThunk(
 );
 
 export const getproductbyname1 = createAsyncThunk(
-  "zapros/getproductbyname1",
+  "requests/getproductbyname1",
   async function (params: ProductByNameParams, { rejectWithValue }) {
     try {
       let url = `api/products?Name=${params.Name}`
@@ -404,7 +640,7 @@ export const getproductbyname1 = createAsyncThunk(
 );
 
 export const getsearchprodusct = createAsyncThunk(
-  "zapros/getsearchprodusct",
+  "requests/getsearchprodusct",
   async function (search: string) {
     try {
       const { data } = await axiosRequest.get(

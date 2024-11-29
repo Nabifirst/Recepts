@@ -6,16 +6,15 @@ import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import { getdata, getsearchprodusct } from '../../requests/requests'
 
-// Define types for Redux state
 interface State {
 	redus: {
-		data: any[] // Define the structure of your data
-		databyid: any[] // Define the structure of your data by ID
-		BySubCategory: any[] // Define the structure of BySubCategory
+		data: any[] 
+		databyid: any[]
+		BySubCategory: any[]
 		inpreg: string
 		inpreg1: string
 		searchinp: string
-		datasearch: any[] // Define the structure of search data
+		datasearch: any[]
 	}
 }
 
@@ -33,17 +32,14 @@ const Layout: React.FC = () => {
 	const [showLikeAnimation, setShowLikeAnimation] = useState<boolean>(false)
 
 	useEffect(() => {
-		// Function to check the localStorage value
 		const checkLikeAnimation = () => {
 			const isAnimationActive =
 				localStorage.getItem('showLikeAnimation') === 'true'
 			setShowLikeAnimation(isAnimationActive)
 		}
 
-		// Set an interval to check the localStorage every 500ms
 		const intervalId = setInterval(checkLikeAnimation, 500)
 
-		// Cleanup the interval on component unmount
 		return () => clearInterval(intervalId)
 	}, [])
 
@@ -53,7 +49,7 @@ const Layout: React.FC = () => {
 				{showLikeAnimation && (
 					<div className='fixed top-0 left-0 w-full h-full flex justify-center items-center z-50'>
 						<FavoriteIcon
-							className='like-icon' // Add CSS animation class
+							className='like-icon' 
 							sx={{ fontSize: 250 }}
 						/>
 					</div>

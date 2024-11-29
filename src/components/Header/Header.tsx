@@ -18,7 +18,7 @@ type UserInfo = {
 
 const Header = () => {
   const [loading, _] = useState<boolean>(false);
-  const token = localStorage.getItem('authToken'); // Retrieve the JWT token
+  const token = localStorage.getItem('authToken');
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -261,7 +261,7 @@ const Header = () => {
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                disabled={isRecording} // Disable text input while recording
+                disabled={isRecording}
               />
               <div
                 className={`h-[40px] w-[40px] flex justify-center items-center rounded-full ${inputValue.length === 0 && !audioBlob ? 'bg-gray-200 cursor-not-allowed' : 'bg-blue-400'} cursor-pointer shadow-lg hover:bg-gray-200 transition-all duration-300`}

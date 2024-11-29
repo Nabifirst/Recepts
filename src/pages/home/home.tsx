@@ -43,7 +43,6 @@ const Home: React.FC = () => {
 	const [_, setBgColor] = useState<string>('')
 
 	useEffect(() => {
-		// Function to generate a random color
 		const generateRandomColor = () => {
 			const letters = '0123456789ABCDEF'
 			let color = '#'
@@ -53,7 +52,6 @@ const Home: React.FC = () => {
 			return color
 		}
 
-		// Set the random color as the background color
 		setBgColor(generateRandomColor())
 	}, [])
 

@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
-import { FaSpinner } from 'react-icons/fa' // Assuming you are using react-icons for the loading spinner
 import { useDispatch, useSelector } from 'react-redux'
-import Modal from 'react-responsive-modal'
 import { useParams } from 'react-router-dom'
 import img1 from '../pages/ProductInfo/motta.uix.store_product_11-inch-tablet-pro-2020-space-gray_-transformed.png'
-import img2 from '../pages/ProductInfo/Transparent_X (2).png'
 import { getProductById } from '../requests/requests'
-import { AppDispatch, RootState } from '../store/store' // Replace with your store's setup
+import { AppDispatch, RootState } from '../store/store'
 
 interface ProductImage {
 	fileName: string
@@ -81,41 +78,16 @@ const InfoPanel: React.FC = () => {
 		})
 	}
 
-	const [open, setOpen] = useState<boolean>(false)
-	const [loading, setLoading1] = useState<boolean>(true)
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleOpen = () => {
-		setOpen(true)
-		setLoading1(true)
-		setTimeout(() => {
-			setLoading1(false)
-		}, 2000)
-	}
-
-	const handleIframeLoad = () => {
-		setLoading1(false) // Set loading to false when iframe is loaded
-	}
+		setIsModalOpen(true);
+	};
 
 	const handleClose = () => {
-		setOpen(false)
-	}
+		setIsModalOpen(false);
+	};
 
-	const handleFullScreen = () => {
-		const videoFrame = document.getElementById('video-frame') as HTMLElement
-
-		if (videoFrame.requestFullscreen) {
-			videoFrame.requestFullscreen()
-		} else if ((videoFrame as any).mozRequestFullScreen) {
-			// Firefox
-			;(videoFrame as any).mozRequestFullScreen()
-		} else if ((videoFrame as any).webkitRequestFullscreen) {
-			// Chrome, Safari & Opera
-			;(videoFrame as any).webkitRequestFullscreen()
-		} else if ((videoFrame as any).msRequestFullscreen) {
-			// IE/Edge
-			;(videoFrame as any).msRequestFullscreen()
-		}
-	}
 
 	return (
 		<div className='w-full'>
@@ -161,80 +133,51 @@ const InfoPanel: React.FC = () => {
 									onClick={handleOpen}
 								/>
 							)}
-							<Modal
-								closeIcon
-								open={open}
-								onClose={handleClose}
-								center
-								styles={{
-									modal: {
-										maxWidth: '60%',
-										width: '55%',
-										padding: '0',
-									},
+						</div>
+						<div>
+						{isModalOpen && (
+						<div
+							style={{
+								position: 'fixed',
+								top: 0,
+								left: 0,
+								width: '100%',
+								height: '100%',
+								backgroundColor: 'rgba(0, 0, 0, 0.5)',
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								zIndex: 1000,
+							}}
+							onClick={handleClose}
+						>
+							<div
+								style={{
+									backgroundColor: 'white',
+									padding: '20px',
+									borderRadius: '10px',
+									position: 'relative',
 								}}
+								onClick={(e) => e.stopPropagation()}
 							>
-								<img
-									onClick={handleClose}
-									className='w-[20px] absolute z-20 right-3 top-3'
-									src={img2}
-									alt=''
-								/>
-								{loading && (
-									<div
-										style={{
-											position: 'absolute',
-											top: '50%',
-											left: '50%',
-											transform: 'translate(-50%, -50%)',
-											zIndex: 20,
-											backgroundColor: 'rgba(255, 255, 255, 0.8)',
-											padding: '10px',
-											borderRadius: '50%',
-										}}
-									>
-										<FaSpinner
-											className='animate-spin'
-											size={50}
-											color='black'
-										/>
-									</div>
-								)}
-								{data?.data?.images
-									?.filter?.((elem: any) => elem.fileName.includes('mp4'))
-									?.map((elem1: any) => (
-										<div
-											key={elem1.fileName}
-											style={{
-												width: '100%',
-												height: '0',
-												paddingBottom: '56.25%',
-												position: 'relative',
-											}}
-										>
-											{!loading && (
-												<iframe
-													id='video-frame'
-													src={`${import.meta.env.VITE_APP_FILES_URL}${
-														elem1?.fileName
-													}`}
-													frameBorder='0'
-													allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-													allowFullScreen
-													onLoad={handleIframeLoad}
-													style={{
-														position: 'absolute',
-														top: 0,
-														left: 0,
-														width: '100%',
-														height: '100%',
-													}}
-													onClick={handleFullScreen} // Trigger full screen on click
-												/>
-											)}
-										</div>
-									))}
-							</Modal>
+								<div className='flex gap-[10px] w-full p-[10px]'>
+								{data?.data?.images?.filter((elem:ProductImage) => elem.fileName.includes('mp4'))?.map((elem1:ProductImage) => {
+    return (
+        <div key={elem1.fileName}>
+            <video 
+                src={`${import.meta.env.VITE_APP_FILES_URL}${elem1?.fileName}`} 
+                controls 
+                width="100%" 
+                className=' h-[600px]' 
+            />
+        </div>
+    );
+})}
+
+</div>
+							</div>
+						</div>
+					)}
 						</div>
 						<div className=' flex gap-[10px] w-full p-[10px]'>
 							{data?.data?.images
@@ -244,14 +187,6 @@ const InfoPanel: React.FC = () => {
 										className={`thumbnail flex w-full gap-[10px] bg-white ${
 											isActive(image) ? ' border-black' : ''
 										}`}
-										// style={{
-										// 	backgroundImage: `url(${
-										// 		import.meta.env.VITE_APP_FILES_URL
-										// 	}${image?.fileName})`,
-										// 	backgroundSize: 'cover',
-										// 	backgroundPosition: 'center',
-
-										// }}
 										src={`${import.meta.env.VITE_APP_FILES_URL}${
 											image?.fileName
 										}`}

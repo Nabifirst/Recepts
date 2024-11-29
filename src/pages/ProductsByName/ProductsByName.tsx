@@ -9,7 +9,7 @@ import { ToastContainer } from 'react-toastify'
 import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { getdata, getproductbyname1 } from '../../requests/requests'
-import { RootState } from '../../store/store' // Adjust the path to your Redux store
+import { RootState } from '../../store/store'
 import './ProductsByName.css'
 
 interface Product {
@@ -21,7 +21,7 @@ interface Product {
 }
 
 const ProductsByName: React.FC = () => {
-	const [likedProducts, setLikedProducts] = useState<number[]>([]) // Liked products' IDs
+	const [likedProducts, setLikedProducts] = useState<number[]>([])
 	const [_, setValue] = useState<number>(2)
 	const [zero, setZero] = useState<number>(0)
 
@@ -37,12 +37,12 @@ const ProductsByName: React.FC = () => {
 		setTimeout(() => {
 			window.scrollTo(0, 0)
 			navigate(`/ProductInfo/:${productId}`)
-		}, 0) // Simulate loading delay
+		}, 0)
 	}
 
 	useEffect(() => {
 		if (id1) {
-			dispatch(getproductbyname1({ Name: id1 }) as any) // Adjust `as any` to match your thunk action type
+			dispatch(getproductbyname1({ Name: id1 }) as any)
 		}
 	}, [dispatch, id1])
 
@@ -53,7 +53,7 @@ const ProductsByName: React.FC = () => {
 	}, [data])
 
 	useEffect(() => {
-		dispatch(getdata() as any) // Adjust `as any` to match your thunk action type
+		dispatch(getdata() as any)
 	}, [dispatch])
 
 	const handleToggleLiked = (product: Product) => {
@@ -173,7 +173,7 @@ const ProductsByName: React.FC = () => {
 											<div className='flex items-center'>
 												<h1 className='h-[50px]'>
 													{product.description.length > 20
-														? product.description.slice(0, 48) + '...'
+														? product.description.slice(0, 38) + '...'
 														: product.description}
 												</h1>
 											</div>

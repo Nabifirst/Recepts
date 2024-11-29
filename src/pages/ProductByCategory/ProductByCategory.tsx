@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { getdata, getproductbycategoryid } from '../../requests/requests'
 import './ProductByCategory.css'
 
-// Interfaces for typing
 interface Product {
 	id: number
 	name: string
@@ -32,7 +31,7 @@ interface SubCategory {
 }
 
 const ProductByCategory: React.FC = () => {
-	const [likedProducts, setLikedProducts] = useState<number[]>([]) // Liked products' IDs
+	const [likedProducts, setLikedProducts] = useState<number[]>([])
 	const [_, setValue] = useState<number>(2)
 	const [zero, setZero] = useState<number>(0)
 

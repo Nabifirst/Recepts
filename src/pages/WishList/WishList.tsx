@@ -18,7 +18,7 @@ interface Product {
   quantity: number;
 }
 
-const Favourite: React.FC = () => {
+const Wishlist: React.FC = () => {
   const [likedItems, setLikedItems] = useState<Product[]>([]);
   const navigate = useNavigate();
 
@@ -118,7 +118,7 @@ const Favourite: React.FC = () => {
                   <div className="flex items-center">
                     <h1 className=' h-[50px]'>
                       {product.description.length > 20
-                        ? product.description.slice(0, 48) + "..."
+                        ? product.description.slice(0, 38) + "..."
                         : product.description}
                     </h1>
                   </div>
@@ -136,7 +136,7 @@ const Favourite: React.FC = () => {
                       <button className="ml-[15px]">More</button>
                       <MoreHorizIcon className="relative top-[2.5px]" fontSize="medium" />
                     </div>
-                    <div onClick={() => handleRemoveFromLiked(product)} className="sm:flex">
+                    <div onClick={() => handleRemoveFromLiked(product)} className="sm:flex mt-[8px]">
                       <Button
                         variant="outlined"
                         sx={{
@@ -163,4 +163,4 @@ const Favourite: React.FC = () => {
   );
 };
 
-export default Favourite;
+export default Wishlist;

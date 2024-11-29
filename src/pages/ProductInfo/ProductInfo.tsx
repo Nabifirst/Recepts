@@ -16,7 +16,6 @@ import { getproduct } from '../../requests/requests'
 import { RootState } from '../../store/store'
 import './product.css'
 
-// Define the Product interface
 interface Product {
 	id: number
 	name: string
@@ -29,53 +28,69 @@ interface Product {
 }
 
 const ProductInfo: React.FC = () => {
-	const [_, setValue] = useState<number>(2) // Rating value
-	const [likedProducts, setLikedProducts] = useState<number[]>([]) // Liked products' IDs
+	const [_, setValue] = useState<number>(2)
+	const [likedProducts, setLikedProducts] = useState<number[]>([])
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
-	// Selector to fetch product data from the Redux store
 	const data1: Product[] = useSelector(
 		(state: RootState) => state.redus.dataproduct
 	)
 
-	// Fetch products on component mount
 	useEffect(() => {
 		dispatch(getproduct() as any)
 	}, [dispatch])
 
-	// Load liked products from localStorage
 	useEffect(() => {
 		const likedItems = JSON.parse(localStorage.getItem('likedItems') || '[]')
 		setLikedProducts(likedItems.map((item: Product) => item.id))
 	}, [])
 
-	// Navigate to product detail page
 	const handleProductClick = (productId: number) => {
 		navigate(`/ProductInfo/${productId}`)
 	}
 
-	// Handle toggling liked state
+	const [zero, setZero] = useState<number>(0)
+
 	const handleToggleLiked = (product: Product) => {
 		const likedItems: Product[] = JSON.parse(
 			localStorage.getItem('likedItems') || '[]'
 		)
 
 		if (likedProducts.includes(product.id)) {
-			// Remove the product from liked items
 			const updatedItems = likedItems.filter((item) => item.id !== product.id)
 			setLikedProducts(likedProducts.filter((id) => id !== product.id))
 			localStorage.setItem('likedItems', JSON.stringify(updatedItems))
 		} else {
-			// Add the product to liked items
 			likedItems.push(product)
 			setLikedProducts([...likedProducts, product.id])
 			localStorage.setItem('likedItems', JSON.stringify(likedItems))
 		}
 
-		// Trigger an event to update cart count
 		window.dispatchEvent(new Event('updateCartCount'))
 	}
+
+	const handleToggleLiked1 = (product: Product) => {
+		handleToggleLiked(product)
+		localStorage.setItem('showLikeAnimation', zero === 0 ? 'false' : 'true')
+		setTimeout(() => {
+			localStorage.setItem('showLikeAnimation', 'false')
+		}, 1000)
+	}
+
+	useEffect(() => {
+		const likedItems: Product[] = JSON.parse(
+			localStorage.getItem('likedItems') || '[]'
+		)
+		setLikedProducts(likedItems.map((item) => item.id))
+	}, [])
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setZero(1)
+		}, 1000)
+		return () => clearTimeout(timeout)
+	}, [])
 
 	return (
 		<div className='header-container text-black'>
@@ -147,7 +162,7 @@ const ProductInfo: React.FC = () => {
 								<div className='flex items-center'>
 									<h1>
 										{product.description.length > 20
-											? product.description.slice(0, 48) + '...'
+											? product.description.slice(0, 38) + '...'
 											: product.description}
 									</h1>
 								</div>
@@ -173,7 +188,7 @@ const ProductInfo: React.FC = () => {
 										/>
 									</div>
 									<div
-										onClick={() => handleToggleLiked(product)}
+										onClick={() => handleToggleLiked1(product)}
 										className='sm:flex'
 									>
 										<Button

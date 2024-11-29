@@ -4,11 +4,10 @@ import Layout from './pages/layout/Layout'
 import Home from './pages/home/home'
 import ProductInfo from './pages/ProductInfo/ProductInfo';
 import ProductByCategory from './pages/ProductByCategory/ProductByCategory'
-import Favourite from './pages/Favourite/Favourite';
 import ProductsByName from './pages/ProductsByName/ProductsByName';
 import ProductByBrand from './pages/ProductByBrand/ProductByBrand';
-import CreateAccount from './pages/CreateAccount/CreateAccount';
 import PersonalAccount from './pages/PersonalAccount/PersonalAccount';
+import Wishlist from './pages/WishList/WishList';
 function App() {
   const isRouder = createBrowserRouter([
     {
@@ -17,7 +16,6 @@ function App() {
       children: [
         {
           index: true,
-          // path:"/Home",
           element: <Home />,
         },
         {
@@ -29,8 +27,8 @@ function App() {
           element: <ProductByCategory />,
         },
         {
-          path: "/Favourite",
-          element: <Favourite />,
+          path: "/WishList",
+          element: <Wishlist />,
         },
         {
           path: "/ProductsByName/:Name",
@@ -42,10 +40,6 @@ function App() {
         },
 
       ],
-    },
-    {
-      path: "/CreateAccount",
-      element: <CreateAccount />,
     },
     {
       path: "/PersonalAccount",

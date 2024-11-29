@@ -1,4 +1,4 @@
-import { ExpandLess } from '@mui/icons-material' // Import icons
+import { ExpandLess } from '@mui/icons-material'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined'
@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getbyid, getdata, getproductbyname } from '../requests/requests'
-import { RootState } from '../store/store' // Adjust to your Redux store path
+import { RootState } from '../store/store' 
 import Logo from './Header/watermark_preview_image20240825-1-1aopu4e_(1)-transformed (1).png'
 
 interface SubCategoryItem {
@@ -27,7 +27,6 @@ interface Product {
 }
 
 const HeaderPlace: React.FC = () => {
-	const token = localStorage.getItem('authToken') // Retrieve the JWT token
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 
@@ -72,7 +71,6 @@ const HeaderPlace: React.FC = () => {
 
 	useEffect(() => {
 		dispatch(getdata() as any)
-		// dispatch(getbyid());
 	}, [dispatch])
 
 	const handleProductClick1 = (productId: number) => {
@@ -169,7 +167,7 @@ const HeaderPlace: React.FC = () => {
 									/>
 								</div>
 								<div
-									onClick={() => navigate(`ProductsBy/:${search}`)}
+									onClick={() => {navigate(`ProductsByName/:${search}`),setSearch('')}}
 									className='bg-gradient-to-r w-[55px] flex justify-center from-purple-500 to-indigo-600 p-[12px] rounded-full shadow-lg cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl'
 								>
 									<SearchIcon style={{ color: '#fff', fontSize: '25px' }} />
@@ -208,26 +206,20 @@ const HeaderPlace: React.FC = () => {
 						</div>
 						<nav className='nav-section sm:hidden md:flex gap-[10px] mt-[5px]'>
 							<div
-								onClick={() => navigate('/Favourite')}
+								onClick={() => {navigate('/WishList'),window.scrollTo(0,0)}}
 								className='pl-[10px] flex items-center gap-[10px] hover:bg-gray-300 border-[1px] shadow-md cursor-pointer rounded-[8px] p-[10px]'
 							>
 								<FavoriteBorderIcon className='text-gray-600' />
 							</div>
 							<div
-								onClick={() =>
-									token
-										? window.open('/PersonalAccount', '_blank')
-										: window.open('/CreateAccount', '_blank')
-								}
+								onClick={() =>navigate('/PersonalAccount')}
 								className='pl-[10px] border-[1px] shadow-md flex items-center gap-[10px] hover:bg-gray-300 cursor-pointer rounded-[8px] p-[10px]'
 							>
 								<Person2OutlinedIcon className='text-gray-600' />
 								<p
-									className={`font-sans ${
-										token ? 'w-[150px]' : 'w-full'
-									} text-[17px] text-gray-600`}
+									className={`font-sans w-[150px] text-[17px] text-gray-600`}
 								>
-									{token ? 'Личный кабинет' : 'Bойти'}
+									Личный кабинет
 								</p>
 							</div>
 						</nav>
@@ -235,8 +227,8 @@ const HeaderPlace: React.FC = () => {
 				</header>
 			</div>
 			<div
-				className={`fixed  flex top-[73px] bg-white   mt-2 p-4 z-20 transition-all duration-300 ease-in-out  shadow-lg ${
-					isSectionOpen ? 'max-h-[800px]' : 'max-h-0 opacity-0'
+				className={`fixed  flex top-[73px] bg-white     z-20 transition-all duration-300 ease-in-out  shadow-lg ${
+					isSectionOpen ? 'max-h-[800px] p-4' : 'max-h-0 opacity-0 p-0'
 				}`}
 				style={{
 					width: '100%',
@@ -305,13 +297,13 @@ const HeaderPlace: React.FC = () => {
 						<div className='w-[100%] flex flex-wrap '>
 							{databyid?.subCategories?.map((el: SubCategoryItem) => (
 								<div
-									key={el.id} // Ensure `el.id` is unique
+									key={el.id}
 									className='pb-[10px] p-[10px] flex items-center gap-[10px]'
 								>
 									<img
 										className='w-[60px] rounded-full'
 										src={`${import.meta.env.VITE_APP_FILES_URL}${el.fileName}`}
-										alt={el.name} // Better alt attribute
+										alt={el.name}
 									/>
 									<h1
 										onClick={() => handleProductClick1(el.id)}

@@ -6,7 +6,7 @@ import { Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { getBrands } from '../../requests/requests'
 import FastFood from './fast-food-title-vector-23507832-removebg-preview.png'
-import './OurBrands.css'
+import './TopFoods.css'
 interface Brand {
 	id: string
 	name: string
@@ -19,7 +19,7 @@ interface RootState {
 	}
 }
 
-const OurBrands: React.FC = () => {
+const TopFoods: React.FC = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const data = useSelector((store: RootState) => store.redus.AllBrands)
@@ -31,7 +31,7 @@ const OurBrands: React.FC = () => {
 		})
 	}, [dispatch])
 
-	// Simulate outlet context type if available
+
 	const { setLoading: setAppLoading } =
 		useOutletContext<{ setLoading: (state: boolean) => void }>() || {}
 
@@ -45,10 +45,6 @@ const OurBrands: React.FC = () => {
 
 	const getRandomGradient = (): string => {
 		const gradients = [
-			//   'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-			//   'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
-			//   'linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 100%)',
-			//   'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)',
 			'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',
 		]
 		return gradients[Math.floor(Math.random() * gradients.length)]
@@ -130,4 +126,4 @@ const OurBrands: React.FC = () => {
 	)
 }
 
-export default OurBrands
+export default TopFoods

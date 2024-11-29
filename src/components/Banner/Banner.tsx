@@ -9,15 +9,13 @@ import banner from './360_F_598758341_NzcqKk3DX3bJhQge0Ngba47JQDmI8bHm.jpg'
 import banner1 from './depositphotos_217981402-stock-photo-set-pizza-black-wooden-background.jpg'
 import banner2 from './depositphotos_271642912-stock-photo-grilled-ribeye-beef-steak-herbs.jpg'
 
-// Interface for subcategories
 interface SubCategory {
 	id: number
 	name: string
 	fileName: string
-	[key: string]: any // For additional unknown properties
+	[key: string]: any
 }
 
-// Interface for Redux state
 interface ReduxState {
 	redus: {
 		MoreSubCategories: SubCategory[]
@@ -39,7 +37,7 @@ const Banner: React.FC = () => {
 	}, [dispatch])
 
 	const specialElements = MoreSubCategories?.filter((el) =>
-		['Стейк', 'Пицца', 'Humburger', 'Суп', 'Мохито', 'Цезарь'].includes(el.name)
+		['Стейк', 'Пицца', 'Гамбургер', 'Суп', 'Мохито', 'Цезарь'].includes(el.name)
 	)
 
 	const handleProductClick = (productId: number) => {

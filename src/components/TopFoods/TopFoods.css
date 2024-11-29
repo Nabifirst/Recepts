@@ -99,11 +99,6 @@
   .image:hover {
     transform: scale(1.1);
   }
-  
-  /* OurBrands.css */
-
-/* Ensure the container doesn't overflow and elements resize */
-
 
 .overFlow-Divs {
   display: flex;

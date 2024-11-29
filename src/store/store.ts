@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import redus from "../reduser/redus"; // Adjust path if necessary
+import redus from "../reduser/redus"; 
 
 export const store = configureStore({
   reducer: {

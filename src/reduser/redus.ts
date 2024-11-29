@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getBrands, getbyid, getBySubCategory, getcart, getcategory, getdata, getMoreSubCategories, getproduct, getproductbyalsocategory, getproductbybrandid, getproductbycategoryid, getProductById, getproductbyname, getproductbyname1, getsearchprodusct, getSubCategory } from "../requests/requests";
+import { getatributsbyproductid, getattributes, getattributesvalue, getBrands, getbyid, getBySubCategory, getcart, getcategory, getdata, getMoreSubCategories, getproduct, getproductbyalsocategory, getproductbybrandid, getproductbycategoryid, getProductById, getproductbyname, getproductbyname1, getsearchprodusct, getSubCategory } from "../requests/requests";
 
 
 interface RedusState {
   data: any[];
   databyid: any;
+  attributes:any;
+  attributesValue:any;
   dataproduct: any[];
+  getatributbyproduct:any[]
   datacart: any[];
   MoreSubCategories: any[];
   inpreg: string;
@@ -28,10 +31,12 @@ const initialState: RedusState = {
   data: [],
   databyid: [],
   dataproduct: [],
+  attributes:[],
   datacart: [],
   MoreSubCategories: [],
   inpreg: "",
   inpreg1: "",
+  attributesValue:[],
   datasearch: [],
   searchinp: "",
   BySubCategory: [],
@@ -42,6 +47,7 @@ const initialState: RedusState = {
   AllCategory: [],
   AllBrands: [],
   AllSubCategory: [],
+  getatributbyproduct:[],
   BrandById: [],
   ProductById: [],
 };
@@ -70,11 +76,20 @@ const redus = createSlice({
     builder.addCase(getProductById.fulfilled, (state, action) => {
       state.ProductById = action.payload;
     });
+    builder.addCase(getattributes.fulfilled, (state, action) => {
+      state.attributes = action.payload;
+    });
+    builder.addCase(getattributesvalue.fulfilled, (state, action) => {
+      state.attributesValue = action.payload;
+    });
     builder.addCase(getBrands.fulfilled, (state, action) => {
       state.AllBrands = action.payload;
     });
     builder.addCase(getproductbyname.fulfilled, (state, action) => {
       state.productByName = action.payload;
+    });
+    builder.addCase(getatributsbyproductid.fulfilled, (state, action) => {
+      state.getatributbyproduct = action.payload;
     });
     builder.addCase(getBySubCategory.fulfilled, (state, action) => {
       state.BySubCategory = action.payload;
